@@ -1,0 +1,88 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ */
+package com.mycompany.consoles;
+
+import java.util.Scanner;
+
+public interface IConsoles {
+
+    String getConsoleType();
+
+    String getStore();
+
+    int getTotalSales();
+}
+
+public abstract class Consoles implements IConsoles {
+
+    // Variables to store data
+    private String consoleType;
+    private String storeName;
+    private int totalSales;
+
+    // Constructor that accepts console type, store name, total amount
+    public Consoles(String consoleType, String storeName, int totalSales) {
+        this.consoleType = consoleType;
+        this.storeName = storeName;
+        this.totalSales = totalSales;
+    }
+
+    // Methods to get values - required by interface
+    @Override
+    public String getConsoleType() {
+        return consoleType;
+    }
+
+    @Override
+    public String getStore() {
+        return storeName;
+    }
+
+    @Override
+    public int getTotalSales() {
+        return totalSales;
+    }
+
+    // Abstract method for report - will be implemented in subclass
+    public abstract void printReport();
+}
+
+public class Console extends Consoles {
+
+    public ConsoleSales(String consoleType, String storeName, int totalSales) {
+        super(consoleType, storeName, totalSales);
+    }
+
+    // printReport method which prints console type, store name, and total
+    @Override
+    public void printReport() {
+        System.out.println("\n--- CONSOLE SALES REPORT ---");
+        System.out.println("Console Type: " + getConsoleType());
+        System.out.println("Store Name: " + getStore());
+        System.out.println("Total Sales: R" + getTotalSales());
+        System.out.println("----------------------------");
+    }
+}
+
+public class RunApplication {
+
+    public static void main(String[] args) {
+        try (Scanner input = new Scanner(System.in)) {
+            System.out.print("Enter console device type (PS5 / XBOX / SWITCH): ");
+            String type = input.nextLine();
+
+            System.out.print("Enter store name: ");
+            String store = input.nextLine();
+
+            System.out.print("Enter total amount of sales: ");
+            int sales = input.nextInt();
+
+            // Instantiating
+            ConsoleSales sale1 = new ConsoleSales(type, store, sales);
+
+            sale1.printReport();
+        }
+
+    }
+}
